@@ -21,9 +21,10 @@ jobs:
       - name: Compile src and test
         run: |
           mkdir -p bin
-          javac -d bin -cp "lib/*" $(find src test -name "*.java")
+          $sources = Get-ChildItem -Path src, test -Filter *.java -Recurse | ForEach-Object { $_.FullName }
+          javac -d bin -cp "lib/*" $sources
 
       - name: Run JUnit tests
         run: |
-          java -jar lib/junit-platform-console-standalone-*.jar execute \
+          java -jar lib/junit-platform-console-standalone-6.1.3.jar execute `
             --class-path bin --scan-class-path --disable-banner
