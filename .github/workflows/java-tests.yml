@@ -1,7 +1,9 @@
 name: Quiz 3 - 5143706
 
 on:
-  push:  # run on every push
+  push:
+    branches:
+      - main
   pull_request:   # and on every pull request
   workflow_dispatch:  # adds a "Run workflow" button
 
@@ -27,6 +29,6 @@ jobs:
         run: |
           java -jar lib/junit-platform-console-standalone-6.1.3.jar execute --class-path bin --select-class CalculatorTest --details=summary
 
-      - name: Show student name
-        run: echo "Student Name: ${{ github.actor }}"
+      - name: Show student repository
+        run: echo "Repository: ${{ github.repository }}"
 
