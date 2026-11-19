@@ -1,12 +1,15 @@
-name: Java Tests
+name: Quiz 3 - 5143706
 
 on:
-  push:               #run on every push
-  pull_request:     #run on every pull request  
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Get the Code
         uses: actions/checkout@v4
@@ -24,5 +27,7 @@ jobs:
 
       - name: Run Junit tests
         run: |
-          java -jar lib/junit-platform-console-standalone-6.1.3.jar execute \
-            --class-path bin --scan-class-path --disable-banner
+          java -jar lib/junit-platform-console-standalone-6.1.3.jar execute --class-path bin --select-class CalculatorTest --details=summary
+
+      - name: Show GitHub Repository
+        run: echo "Repository: ${{ github.repository }}"
